@@ -1,14 +1,21 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
+interface Game {
+  id: string;
+  name: string;
+  description: string;
+  rating: number;
+}
+
 export default function GameDetailPage() {
-  const router = useRouter();
-  const { id } = router.query as { id: string };
-  const [game, setGame] = useState<any>(null);
+  const { id } = useParams<{ id: string }>();
+  const [game, setGame] = useState<Game | null>(null);
 
   useEffect(() => {
+    if (!id) return;
     // In a real app, fetch game data by id
     setGame({
       id,
